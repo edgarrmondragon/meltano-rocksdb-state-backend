@@ -7,7 +7,7 @@ on:
       - src/**
       - tests/**
       - pyproject.toml
-      - .github/workflows/test.yml
+      - .github/workflows/test.yaml
       - .github/workflows/constraints.txt
   pull_request:
     branches: [main]
@@ -15,7 +15,7 @@ on:
       - src/**
       - tests/**
       - pyproject.toml
-      - .github/workflows/test.yml
+      - .github/workflows/test.yaml
       - .github/workflows/constraints.txt
   workflow_dispatch: {}
   schedule:
@@ -35,7 +35,7 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           cache: pip
-          python-version: "3.12"
+          python-version: "3.11"
       - name: Install dependencies
         env:
           PIP_CONSTRAINT: .github/workflows/constraints.txt
@@ -65,10 +65,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Python ${{ matrix.python-version }} (nightly)
-        uses: deadsnakes/action@v3.0.1
+      - uses: actions/setup-python@v4
         with:
-          python-version: "${{ matrix.python-version }}-dev"
+          cache: pip
+          python-version: ${{ matrix.python-version }}
+          allow-prereleases: true
+          architecture: x64
 
       - name: Install dependencies
         env:

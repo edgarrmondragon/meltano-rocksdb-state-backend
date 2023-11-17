@@ -1,0 +1,12 @@
+version: 1
+default_environment: dev
+project_id: 1ec76bd8-4499-4bad-a974-b27225d75f12
+environments:
+- name: dev
+- name: staging
+- name: prod
+send_anonymous_usage_stats: false
+state_backend:
+  uri: rocksdb://${MELTANO_SYS_DIR_ROOT}/state
+  rocksdb:
+    write_buffer_size: 0x2000000  # 32MB
