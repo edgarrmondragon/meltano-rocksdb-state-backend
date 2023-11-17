@@ -7,7 +7,7 @@ This is a [Meltano](https://meltano.com) plugin that provides a [RocksDict](http
 
 ## Configuration
 
-### Meltano YAML
+### `meltano.yml`
 
 ```yaml
 state_backend:
