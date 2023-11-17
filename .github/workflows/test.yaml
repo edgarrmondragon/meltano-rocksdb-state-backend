@@ -65,10 +65,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Python ${{ matrix.python-version }} (nightly)
-        uses: deadsnakes/action@v3.0.1
+      - uses: actions/setup-python@v4
         with:
-          python-version: "${{ matrix.python-version }}-dev"
+          cache: pip
+          python-version: ${{ matrix.python-version }}
+          allow-prereleases: true
+          architecture: x64
 
       - name: Install dependencies
         env:
