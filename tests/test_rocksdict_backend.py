@@ -3,6 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 
 from meltano.core.job_state import JobState
+from meltano.core.project import Project
+from meltano.core.state_store import state_store_manager_from_project_settings
 
 from meltano_rocksdb_state_backend.rocksdb import RocksDBStateStoreManager
 
@@ -67,3 +69,23 @@ def test_write_buffer_size(tmp_path: Path) -> None:
         uri=f"rocksdb://{path.resolve()}",
         write_buffer_size=1024,
     )
+
+
+def test_get_manager() -> None:
+    project = Project.find("fixtures/project")
+    manager = state_store_manager_from_project_settings(project.settings)
+
+    assert isinstance(manager, RocksDBStateStoreManager)
+    assert manager.parsed.scheme == "rocksdb"
+    assert manager.parsed.path.endswith("meltano/state")
+    assert manager.write_buffer_size == 0x2000000
+
+    write_buffer_size = project.settings.find_setting(
+        "state_backend.rocksdb.write_buffer_size",
+    )
+    write_buffer_size_env_vars = [
+        v.key for v in write_buffer_size.env_vars(prefixes=["meltano"])
+    ]
+    assert write_buffer_size_env_vars == [
+        "MELTANO_STATE_BACKEND_ROCKSDB_WRITE_BUFFER_SIZE",
+    ]

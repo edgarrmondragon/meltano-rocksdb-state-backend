@@ -46,6 +46,9 @@ dependencies = [
   "rocksdict>=0.3",
 ]
 [project.optional-dependencies]
+dev = [
+  "meltano-rocksdb-state-backend[testing,typing]",
+]
 testing = [
   "pytest",
 ]

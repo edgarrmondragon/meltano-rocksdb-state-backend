@@ -42,10 +42,11 @@ class RocksDBStateStoreManager(StateStoreManager):  # type: ignore[misc]
         self.parsed = urlparse(self.uri)
         self.path = self.parsed.path
 
-        options = Options()
+        self.write_buffer_size = write_buffer_size
 
-        if write_buffer_size:
-            options.set_write_buffer_size(write_buffer_size)
+        options = Options()
+        if self.write_buffer_size:
+            options.set_write_buffer_size(self.write_buffer_size)
 
         self.db = Rdict(self.path, options=options)
 
