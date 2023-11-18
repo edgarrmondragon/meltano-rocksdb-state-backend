@@ -13,7 +13,7 @@ from rocksdict import Options, Rdict
 
 WRITE_BUFFER_SIZE = SettingDefinition(
     name="state_backend.rocksdb.write_buffer_size",
-    label="write_buffer_size",
+    label="Writer Buffer Size",
     kind="integer",
     default=67108864,  # 64MB
 )
@@ -39,8 +39,7 @@ class RocksDBStateStoreManager(StateStoreManager):  # type: ignore[misc]
         """
         super().__init__(**kwargs)
         self.uri = uri
-        self.parsed = urlparse(self.uri)
-        self.path = self.parsed.path
+        self.scheme, self.path = uri.split("://", 1)
 
         self.write_buffer_size = write_buffer_size
 
