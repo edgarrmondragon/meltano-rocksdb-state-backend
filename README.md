@@ -9,6 +9,22 @@
 This is a [Meltano](https://meltano.com) plugin that provides a [RocksDict](https://github.com/Congyuwang/RocksDict) [state backend](https://docs.meltano.com/concepts/state_backends).
 -->
 
+## Installation
+
+This package needs to be installed in the same Python environment as Meltano.
+
+### With [pipx](https://github.com/pypa/pipx)
+
+#### From GitHub
+
+```bash
+pipx install meltano
+pipx inject 'meltano-rocksdb-state-backend @ git+https://github.com/edgarrmondragon/meltano-rocksdb-state-backend.git'
+```
+#### From PyPI
+
+_This package is not yet available on PyPI._
+
 ## Configuration
 
 ### `meltano.yml`
