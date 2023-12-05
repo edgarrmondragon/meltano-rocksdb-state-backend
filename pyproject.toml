@@ -41,8 +41,8 @@ dynamic = [
   "version",
 ]
 dependencies = [
-  # "meltano>=3.1.0",
-  "meltano@ git+https://github.com/meltano/meltano@state-backend-plugins",
+  # TODO: Refer to a PyPI release once this branch is merged and released
+  "meltano @ git+https://github.com/meltano/meltano@state-backend-plugins",
   "rocksdict>=0.3",
 ]
 [project.optional-dependencies]
