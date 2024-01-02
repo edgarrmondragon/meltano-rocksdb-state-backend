@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import fnmatch
 import typing as t
-from urllib.parse import urlparse
 
 from meltano.core.job_state import JobState
 from meltano.core.setting_definition import SettingDefinition

@@ -82,9 +82,9 @@ jobs:
           HATCH_ENV: "test.py${{ matrix.python-version }}"
         run: |
           hatch run cov
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
-          name: coverage-data
+          name: coverage-data-${{ matrix.os }}-py${{ matrix.python-version }}
           path: ".coverage.*"
 
   coverage:
@@ -103,9 +103,10 @@ jobs:
           PIP_CONSTRAINT: .github/workflows/constraints.txt
         run: |
           pipx install hatch
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
-          name: coverage-data
+          pattern: coverage-data-*
+          merge-multiple: true
       - name: Combine coverage data
         run: |
           hatch run report
