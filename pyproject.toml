@@ -42,7 +42,7 @@ dynamic = [
 ]
 dependencies = [
   # TODO: Refer to a PyPI release once this branch is merged and released
-  "meltano @ git+https://github.com/meltano/meltano@state-backend-plugins",
+  "meltano@ git+https://github.com/meltano/meltano@state-backend-plugins",
   "rocksdict>=0.3",
 ]
 [project.optional-dependencies]
@@ -90,35 +90,6 @@ features = ["testing", "typing"]
 
 [tool.hatch.envs.typing.scripts]
 check = "mypy --strict --install-types --non-interactive {args:src/meltano_rocksdb_state_backend tests}"
-
-[tool.coverage.paths]
-package = [
-  "src/meltano_rocksdb_state_backend/",
-  "*/site-packages/meltano_rocksdb_state_backend/",
-]
-
-[tool.coverage.run]
-branch = true
-source = ["meltano_rocksdb_state_backend", "tests"]
-parallel = true
-relative_files = true
-
-[tool.coverage.report]
-exclude_lines = [
-  "no cov", "if __name__ == .__main__.:",
-  "if t.TYPE_CHECKING:",
-]
-
-[tool.mypy]
-warn_unreachable = true
-warn_unused_configs = true
-warn_unused_ignores = true
-
-[[tool.mypy.overrides]]
-ignore_missing_imports = true
-module = [
-  "meltano.*",
-]
 
 [tool.ruff]
 line-length = 88
@@ -171,3 +142,32 @@ known-first-party = ["meltano_rocksdb_state_backend"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
+
+[tool.coverage.paths]
+package = [
+  "src/meltano_rocksdb_state_backend/",
+  "*/site-packages/meltano_rocksdb_state_backend/",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["meltano_rocksdb_state_backend", "tests"]
+parallel = true
+relative_files = true
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov", "if __name__ == .__main__.:",
+  "if t.TYPE_CHECKING:",
+]
+
+[tool.mypy]
+warn_unreachable = true
+warn_unused_configs = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = [
+  "meltano.*",
+]
