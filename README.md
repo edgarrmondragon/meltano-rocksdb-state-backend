@@ -1,6 +1,6 @@
 # `meltano-rocksdb-state-backend`
 
- ⚠️ **EXPERIMENTAL: See https://github.com/meltano/meltano/tree/state-backend-plugins.** ⚠️
+⚠️ **EXPERIMENTAL: See https://github.com/meltano/meltano/pull/8367.** ⚠️
 
 <!--
 [![PyPI version](https://img.shields.io/pypi/v/meltano-rocksdb-state-backend.svg?logo=pypi&logoColor=FFE873&color=blue)](https://pypi.org/project/meltano-rocksdb-state-backend)
