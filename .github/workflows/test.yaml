@@ -38,7 +38,7 @@ jobs:
           python-version: "3.11"
       - name: Install dependencies
         env:
-          PIP_CONSTRAINT: .github/workflows/constraints.txt
+          PIP_CONSTRAINT: ${{ github.workspace }}/.github/workflows/constraints.txt
         run: |
           pipx install hatch
       - name: Run typing
@@ -74,7 +74,7 @@ jobs:
 
       - name: Install dependencies
         env:
-          PIP_CONSTRAINT: .github/workflows/constraints.txt
+          PIP_CONSTRAINT: ${{ github.workspace }}/.github/workflows/constraints.txt
         run: |
           pipx install hatch
       - name: Run tests
@@ -100,7 +100,7 @@ jobs:
           python-version: "3.11"
       - name: Install dependencies
         env:
-          PIP_CONSTRAINT: .github/workflows/constraints.txt
+          PIP_CONSTRAINT: ${{ github.workspace }}/.github/workflows/constraints.txt
         run: |
           pipx install hatch
       - uses: actions/download-artifact@v4
