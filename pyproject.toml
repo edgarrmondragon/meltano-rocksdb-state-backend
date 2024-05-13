@@ -17,8 +17,12 @@ keywords = [
   "state",
 ]
 license = "MIT"
-maintainers = [{ name = "Edgar Ramírez Mondragón", email = "edgarrm358@gmail.com" }]
-authors = [{ name = "Edgar Ramírez Mondragón", email = "edgarrm358@gmail.com" }]
+maintainers = [
+  { name = "Edgar Ramírez Mondragón", email = "edgarrm358@gmail.com" },
+]
+authors = [
+  { name = "Edgar Ramírez Mondragón", email = "edgarrm358@gmail.com" },
+]
 requires-python = ">=3.8"
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -42,23 +46,20 @@ dynamic = [
 ]
 dependencies = [
   # TODO: Refer to a PyPI release once this branch is merged and released
-  "meltano@ git+https://github.com/meltano/meltano@state-backend-plugins",
+  "meltano @ git+https://github.com/meltano/meltano@state-backend-plugins",
   "rocksdict>=0.3",
 ]
-[project.optional-dependencies]
-dev = [
+optional-dependencies.dev = [
   "meltano-rocksdb-state-backend[testing,typing]",
 ]
-testing = [
+optional-dependencies.testing = [
   "pytest",
 ]
-typing = [
+optional-dependencies.typing = [
   "mypy>=1",
 ]
-[project.entry-points."meltano.settings"]
-write_buffer_size = "meltano_rocksdb_state_backend.rocksdb:WRITE_BUFFER_SIZE"
-[project.entry-points."meltano.state_backends"]
-rocksdb = "meltano_rocksdb_state_backend.rocksdb:RocksDBStateStoreManager"
+entry-points."meltano.settings".write_buffer_size = "meltano_rocksdb_state_backend.rocksdb:WRITE_BUFFER_SIZE"
+entry-points."meltano.state_backends".rocksdb = "meltano_rocksdb_state_backend.rocksdb:RocksDBStateStoreManager"
 
 [tool.hatch.version]
 source = "vcs"
@@ -67,28 +68,48 @@ source = "vcs"
 allow-direct-references = true
 
 [tool.hatch.envs.default]
-dependencies = ["coverage[toml]"]
-features = ["testing"]
+dependencies = [
+  "coverage[toml]",
+]
+features = [
+  "testing",
+]
 [tool.hatch.envs.default.overrides]
-env.GITHUB_ACTIONS.dev-mode = { value = false, if = ["true"] }
+env.GITHUB_ACTIONS.dev-mode = { value = false, if = [
+  "true",
+] }
 [tool.hatch.envs.default.scripts]
 test = "pytest {args:tests}"
 cov = "coverage run -m pytest {args:tests}"
 
 [[tool.hatch.envs.all.matrix]]
-python = ["3.8", "3.9", "3.10", "3.11", "3.12"]
+python = [
+  "3.8",
+  "3.9",
+  "3.10",
+  "3.11",
+  "3.12",
+]
 
 [tool.hatch.envs.coverage]
-dependencies = ["coverage[toml]"]
+dependencies = [
+  "coverage[toml]",
+]
 detached = true
 
 [tool.hatch.envs.coverage.scripts]
 json = "coverage json"
 xml = "coverage xml"
-report = ["coverage combine --debug=pathmap", "coverage report --show-missing"]
+report = [
+  "coverage combine --debug=pathmap",
+  "coverage report --show-missing",
+]
 
 [tool.hatch.envs.typing]
-features = ["testing", "typing"]
+features = [
+  "testing",
+  "typing",
+]
 template = "typing"
 
 [tool.hatch.envs.typing.scripts]
@@ -139,8 +160,12 @@ suppress-dummy-args = true
 parametrize-values-type = "tuple"
 
 [tool.ruff.lint.isort]
-required-imports = ["from __future__ import annotations"]
-known-first-party = ["meltano_rocksdb_state_backend"]
+required-imports = [
+  "from __future__ import annotations",
+]
+known-first-party = [
+  "meltano_rocksdb_state_backend",
+]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
@@ -153,13 +178,17 @@ package = [
 
 [tool.coverage.run]
 branch = true
-source = ["meltano_rocksdb_state_backend", "tests"]
+source = [
+  "meltano_rocksdb_state_backend",
+  "tests",
+]
 parallel = true
 relative_files = true
 
 [tool.coverage.report]
 exclude_lines = [
-  "no cov", "if __name__ == .__main__.:",
+  "no cov",
+  "if __name__ == .__main__.:",
   "if t.TYPE_CHECKING:",
 ]
 
