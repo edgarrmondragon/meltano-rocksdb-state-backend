@@ -60,6 +60,7 @@ optional-dependencies.typing = [
 ]
 entry-points."meltano.settings".write_buffer_size = "meltano_rocksdb_state_backend.rocksdb:WRITE_BUFFER_SIZE"
 entry-points."meltano.state_backends".rocksdb = "meltano_rocksdb_state_backend.rocksdb:RocksDBStateStoreManager"
+
 [tool.hatch.version]
 source = "vcs"
 
