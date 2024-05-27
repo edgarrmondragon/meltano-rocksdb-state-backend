@@ -135,6 +135,15 @@ lint.select = [
   "UP",  # pyupgrade
   "W",   # pycodestyle (warning)
 ]
+lint.ignore = [
+  "ANN101", # Missing type annotation for `self` in method
+  "ANN102", # Missing type annotation for `cls` in class method
+  "PT004",  # Add leading underscore to fixtures that do not return anything
+  "S310",   # Allow `urllib.open`
+  "S603",   # Allow `subprocess.run(..., shell=False)`
+  "UP026",  # Replace `mock` import with `unittest.mock` - remove once Python 3.7 support is dropped
+]
+
 lint.per-file-ignores."tests/**" = [
   "S101", # Allow 'assert' in tests
 ]
@@ -149,14 +158,6 @@ lint.isort.required-imports = [
   "from __future__ import annotations",
 ]
 lint.pydocstyle.convention = "google"
-lint.ignore = [
-  "ANN101", # Missing type annotation for `self` in method
-  "ANN102", # Missing type annotation for `cls` in class method
-  "PT004",  # Add leading underscore to fixtures that do not return anything
-  "S310",   # Allow `urllib.open`
-  "S603",   # Allow `subprocess.run(..., shell=False)`
-  "UP026",  # Replace `mock` import with `unittest.mock` - remove once Python 3.7 support is dropped
-]
 
 [tool.coverage.paths]
 package = [
