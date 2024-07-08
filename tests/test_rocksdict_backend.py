@@ -12,7 +12,7 @@ from meltano.core.state_store import state_store_manager_from_project_settings
 from meltano_rocksdb_state_backend.rocksdb import RocksDBStateStoreManager
 
 
-@pytest.fixture()
+@pytest.fixture
 def project(tmp_path: Path) -> Project:
     path = tmp_path / "project"
     shutil.copytree(
