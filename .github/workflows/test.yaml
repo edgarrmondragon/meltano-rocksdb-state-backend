@@ -88,6 +88,7 @@ jobs:
       - name: Run tests
         env:
           HATCH_ENV: all
+          HATCH_VERBOSE: "1"
           PIP_PRE: "1"
         run: |
           hatch run +py=${{ matrix.python-version }} cov
