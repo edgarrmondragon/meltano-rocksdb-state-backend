@@ -94,6 +94,7 @@ jobs:
           hatch run +py=${{ matrix.python-version }} cov
       - uses: actions/upload-artifact@v4
         with:
+          include-hidden-files: true
           name: coverage-data-${{ matrix.os }}-py${{ matrix.python-version }}
           path: ".coverage.*"
 
