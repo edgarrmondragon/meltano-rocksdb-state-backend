@@ -38,7 +38,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           cache: pip
-          python-version: "3.12"
+          python-version: "3.x"
       - name: Install dependencies
         env:
           PIP_CONSTRAINT: ${{ github.workspace }}/.github/workflows/constraints.txt
@@ -53,17 +53,17 @@ jobs:
   test:
     name: Pytest (Python ${{ matrix.python-version }}, ${{ matrix.os }})
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.python-version == '3.12' }}
+    continue-on-error: ${{ matrix.python-version == '3.13' }}
     strategy:
       fail-fast: false
       matrix:
         os: ["ubuntu-latest"]
         python-version:
-          - "3.8"
           - "3.9"
           - "3.10"
           - "3.11"
           - "3.12"
+          - "3.13"
         include:
           - python-version: "3.12"
             os: "windows-latest"
@@ -108,7 +108,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.x"
       - name: Install dependencies
         env:
           PIP_CONSTRAINT: ${{ github.workspace }}/.github/workflows/constraints.txt
