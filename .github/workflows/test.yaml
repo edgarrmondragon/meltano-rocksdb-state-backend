@@ -65,10 +65,10 @@ jobs:
           - "3.12"
           - "3.13"
         include:
-          - python-version: "3.12"
+          - python-version: "3.13"
             os: "windows-latest"
 
-          - python-version: "3.12"
+          - python-version: "3.13"
             os: "macos-latest"
 
     steps:
