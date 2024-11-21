@@ -1,0 +1,1 @@
+"""Meltano RocksDB State Backend."""
