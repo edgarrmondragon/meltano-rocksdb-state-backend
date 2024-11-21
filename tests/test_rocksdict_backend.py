@@ -1,15 +1,20 @@
 from __future__ import annotations
 
 import shutil
-from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pytest
-from meltano.core.job_state import JobState
 from meltano.core.project import Project
 from meltano.core.setting_definition import SettingKind
-from meltano.core.state_store import state_store_manager_from_project_settings
+from meltano.core.state_store import (
+    MeltanoState,
+    state_store_manager_from_project_settings,
+)
 
 from meltano_rocksdb_state_backend.rocksdb import RocksDBStateStoreManager
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 
 @pytest.fixture
@@ -31,9 +36,8 @@ def test_state_store(tmp_path: Path) -> None:
     )
 
     # Set initial state
-    initial_state = JobState(
+    initial_state = MeltanoState(
         state_id="test",
-        updated_at=None,
         partial_state={},
         completed_state={"key": "value"},
     )
@@ -47,9 +51,8 @@ def test_state_store(tmp_path: Path) -> None:
     assert manager.get_state_ids() == ["test"]
 
     # Merge partial state with existing state
-    new_state = JobState(
+    new_state = MeltanoState(
         state_id="test",
-        updated_at=None,
         partial_state={"key": "value"},
         completed_state={},
     )
@@ -78,19 +81,19 @@ def test_state_store(tmp_path: Path) -> None:
 
 
 def test_get_manager(project: Project) -> None:
-    project.settings.set("state_backend.rocksdb.write_buffer_size", 0x2000000)
+    write_buffer_size = 0x2000000
+    project.settings.set("state_backend.rocksdb.write_buffer_size", write_buffer_size)
 
     manager = state_store_manager_from_project_settings(project.settings)
 
     assert isinstance(manager, RocksDBStateStoreManager)
     assert manager.scheme == "rocksdb"
     assert manager.db.path().endswith(".meltano/state")
-    assert manager.write_buffer_size == 0x2000000
+    assert manager.write_buffer_size == write_buffer_size
 
     manager.set(
-        JobState(
+        MeltanoState(
             state_id="test",
-            updated_at=None,
             partial_state={},
             completed_state={"key": "value"},
         ),
