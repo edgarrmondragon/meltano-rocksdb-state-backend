@@ -21,7 +21,7 @@ WRITE_BUFFER_SIZE = SettingDefinition(
 )
 
 
-class RocksDBStateStoreManager(StateStoreManager):  # type: ignore[misc]
+class RocksDBStateStoreManager(StateStoreManager):
     """A state store manager that uses RocksDB as the backend."""
 
     label: str = "On-disk RocksDB key-value store"
