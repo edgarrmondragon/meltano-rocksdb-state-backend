@@ -40,7 +40,7 @@ jobs:
         with:
           cache: pip
           python-version: "3.x"
-      - uses: astral-sh/setup-uv@v3
+      - uses: astral-sh/setup-uv@v4
         with:
           version: ">=0.5.0"
       - run: >
@@ -78,7 +78,7 @@ jobs:
           cache: pip
           python-version: ${{ matrix.python-version }}
           allow-prereleases: true
-      - uses: astral-sh/setup-uv@v3
+      - uses: astral-sh/setup-uv@v4
         with:
           version: ">=0.5.0"
       - run: >
@@ -105,7 +105,7 @@ jobs:
         with:
           pattern: coverage-data-*
           merge-multiple: true
-      - uses: astral-sh/setup-uv@v3
+      - uses: astral-sh/setup-uv@v4
         with:
           version: ">=0.5.0"
       - name: Combine coverage data and generate report
