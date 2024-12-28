@@ -1,12 +1,12 @@
 [build-system]
 build-backend = "hatchling.build"
 requires = [
-  "hatch-vcs",
   "hatchling",
 ]
 
 [project]
 name = "meltano-rocksdb-state-backend"
+version = "0.0.1"
 description = "Meltano RocksDB State Backend"
 readme = "README.md"
 keywords = [
@@ -41,9 +41,6 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Typing :: Typed",
 ]
-dynamic = [
-  "version",
-]
 dependencies = [
   # TODO: Refer to a PyPI release once this branch is merged and released
   "meltano @ git+https://github.com/meltano/meltano@state-backend-plugins",
@@ -63,9 +60,6 @@ testing = [
 typing = [
   "mypy>=1",
 ]
-
-[tool.hatch.version]
-source = "vcs"
 
 [tool.hatch.metadata]
 allow-direct-references = true
@@ -117,7 +111,7 @@ lint.select = [
   "SLF",  # flake8-self
   "T10",  # flake8-debugger
   "T20",  # flake8-print
-  "TCH",  # flake8-type-checking
+  "TC",   # flake8-type-checking
   "TD",   # flake8-todos
   "TID",  # flake8-tidy-imports
   "TRY",  # tryceratops
@@ -126,12 +120,9 @@ lint.select = [
   "YTT",  # flake8-2020
 ]
 lint.ignore = [
-  "ANN101", # Missing type annotation for `self` in method
-  "ANN102", # Missing type annotation for `cls` in class method
-  "PT004",  # Add leading underscore to fixtures that do not return anything
-  "S310",   # Allow `urllib.open`
-  "S603",   # Allow `subprocess.run(..., shell=False)`
-  "UP026",  # Replace `mock` import with `unittest.mock` - remove once Python 3.7 support is dropped
+  "S310",  # Allow `urllib.open`
+  "S603",  # Allow `subprocess.run(..., shell=False)`
+  "UP026", # Replace `mock` import with `unittest.mock` - remove once Python 3.7 support is dropped
 ]
 
 lint.per-file-ignores."tests/**" = [
@@ -171,6 +162,14 @@ exclude_also = [
 ]
 
 [tool.mypy]
+enable_error_code = [ "ignore-without-code", "redundant-expr", "truthy-bool" ]
+strict = true
 warn_unreachable = true
 warn_unused_configs = true
 warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+follow_untyped_imports = true
+module = [
+  "meltano.*",
+]
