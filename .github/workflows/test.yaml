@@ -7,6 +7,8 @@ on:
       - src/**
       - tests/**
       - pyproject.toml
+      - tox.ini
+      - uv.lock
       - .github/workflows/test.yaml
       - .github/workflows/constraints.txt
   pull_request:
@@ -15,6 +17,8 @@ on:
       - src/**
       - tests/**
       - pyproject.toml
+      - tox.ini
+      - uv.lock
       - .github/workflows/test.yaml
       - .github/workflows/constraints.txt
   workflow_dispatch: {}
@@ -27,19 +31,20 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
 
 env:
-  FORCE_COLOR: "1"
+  FORCE_COLOR: 1
+  UV_VERSION: ~=0.5.27
 
 jobs:
   typing:
     name: Typing
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
         id: setup-python
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@4db96194c378173c656ce18a155ffc14a9fc4355 # v5.2.2
         with:
-          version: ">=0.5.0"
+          version: ${{ env.UV_VERSION }}
       - run: >
           uvx --with-requirements=${{ github.workspace }}/.github/workflows/constraints.txt
           tox -e typing
@@ -68,21 +73,21 @@ jobs:
             os: "macos-latest"
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
         id: setup-python
         with:
           python-version: ${{ matrix.python-version }}
           allow-prereleases: true
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@4db96194c378173c656ce18a155ffc14a9fc4355 # v5.2.2
         with:
-          version: ">=0.5.0"
+          version: ${{ env.UV_VERSION }}
       - run: >
           uvx --with-requirements=${{ github.workspace }}/.github/workflows/constraints.txt
           tox -e ${{ matrix.python-version }}
         env:
           UV_PRERELEASE: "allow"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           include-hidden-files: true
           name: coverage-data-${{ matrix.os }}-py${{ matrix.python-version }}
@@ -93,20 +98,20 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-      - uses: actions/download-artifact@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
+      - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
         with:
           pattern: coverage-data-*
           merge-multiple: true
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@4db96194c378173c656ce18a155ffc14a9fc4355 # v5.2.2
         with:
-          version: ">=0.5.0"
+          version: ${{ env.UV_VERSION }}
       - name: Combine coverage data and generate report
         run: >
           uvx --with-requirements=${{ github.workspace }}/.github/workflows/constraints.txt
           tox -e coverage
-      - uses: codecov/codecov-action@v5
+      - uses: codecov/codecov-action@13ce06bfc6bbe3ecf90edbbf1bc32fe5978ca1d3 # v5.3.1
         with:
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
