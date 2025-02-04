@@ -5,6 +5,8 @@ ci:
   autoupdate_commit_msg: "chore: Update pre-commit hooks"
   autoupdate_schedule: monthly
   submodules: false
+  skip:
+    - uv-lock
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -18,7 +20,7 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.8.4
+    rev: v0.9.4
     hooks:
       - id: ruff
         name: Ruff lint
@@ -31,3 +33,15 @@ repos:
     rev: "v2.5.0"
     hooks:
       - id: pyproject-fmt
+
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.31.1
+    hooks:
+      - id: check-dependabot
+      - id: check-github-workflows
+
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: "0.5.27"
+    hooks:
+      - id: uv-lock
+      - id: uv-sync

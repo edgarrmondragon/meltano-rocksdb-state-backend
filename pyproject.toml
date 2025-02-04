@@ -1,12 +1,12 @@
 [build-system]
 build-backend = "hatchling.build"
 requires = [
-  "hatchling",
+  "hatch-vcs==0.4",
+  "hatchling==1.27",
 ]
 
 [project]
 name = "meltano-rocksdb-state-backend"
-version = "0.0.1"
 description = "Meltano RocksDB State Backend"
 readme = "README.md"
 keywords = [
@@ -17,6 +17,7 @@ keywords = [
   "state",
 ]
 license = "MIT"
+license-files = [ "LICENSE" ]
 maintainers = [
   { name = "Edgar Ramírez Mondragón", email = "edgarrm358@gmail.com" },
 ]
@@ -41,6 +42,9 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Typing :: Typed",
 ]
+dynamic = [
+  "version",
+]
 dependencies = [
   # TODO: Refer to a PyPI release once this branch is merged and released
   "meltano @ git+https://github.com/meltano/meltano@state-backend-plugins",
@@ -55,6 +59,7 @@ dev = [
   { include-group = "typing" },
 ]
 testing = [
+  "coverage[toml]>=7.6.10",
   "pytest>=8",
 ]
 typing = [
@@ -63,6 +68,9 @@ typing = [
 
 [tool.hatch.metadata]
 allow-direct-references = true
+
+[tool.hatch.version]
+source = "vcs"
 
 [tool.ruff]
 line-length = 88
@@ -141,6 +149,11 @@ lint.isort.required-imports = [
 ]
 lint.pydocstyle.convention = "google"
 
+[tool.pytest.ini_options]
+addopts = [
+  "--durations=10",
+]
+
 [tool.coverage.paths]
 package = [
   "src/meltano_rocksdb_state_backend/",
@@ -173,3 +186,8 @@ follow_untyped_imports = true
 module = [
   "meltano.*",
 ]
+
+[tool.uv]
+prerelease = "allow"
+preview = true
+required-version = ">=0.5.19"
