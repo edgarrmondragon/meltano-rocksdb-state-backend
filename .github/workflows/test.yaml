@@ -32,7 +32,12 @@ concurrency:
 
 env:
   FORCE_COLOR: 1
-  UV_VERSION: ~=0.5.27
+  # renovate: datasource=pypi depName=uv
+  UV_VERSION: 0.5.27
+  # renovate: datasource=pypi depName=tox
+  TOX_VERSION: 4.24.1
+  # renovate: datasource=pypi depName=tox-uv
+  TOX_UV_VERSION: 1.25.0
 
 jobs:
   typing:
@@ -45,11 +50,13 @@ jobs:
       - uses: astral-sh/setup-uv@4db96194c378173c656ce18a155ffc14a9fc4355 # v5.2.2
         with:
           version: ${{ env.UV_VERSION }}
-      - run: >
-          uvx --with-requirements=${{ github.workspace }}/.github/workflows/constraints.txt
-          tox -e typing
-        env:
+      - env:
           UV_PYTHON: ${{ steps.setup-python.outputs.python-version }}
+        run: >
+          uvx
+          --with tox-uv==${{ env.TOX_UV_VERSION }}
+          --with tox==${{ env.TOX_VERSION }}
+          tox -e typing
 
   test:
     name: Pytest (Python ${{ matrix.python-version }}, ${{ matrix.os }})
@@ -83,7 +90,9 @@ jobs:
         with:
           version: ${{ env.UV_VERSION }}
       - run: >
-          uvx --with-requirements=${{ github.workspace }}/.github/workflows/constraints.txt
+          uvx
+          --with tox-uv==${{ env.TOX_UV_VERSION }}
+          --with tox==${{ env.TOX_VERSION }}
           tox -e ${{ matrix.python-version }}
         env:
           UV_PRERELEASE: "allow"
@@ -109,7 +118,9 @@ jobs:
           version: ${{ env.UV_VERSION }}
       - name: Combine coverage data and generate report
         run: >
-          uvx --with-requirements=${{ github.workspace }}/.github/workflows/constraints.txt
+          uvx
+          --with tox-uv==${{ env.TOX_UV_VERSION }}
+          --with tox==${{ env.TOX_VERSION }}
           tox -e coverage
       - uses: codecov/codecov-action@13ce06bfc6bbe3ecf90edbbf1bc32fe5978ca1d3 # v5.3.1
         with:

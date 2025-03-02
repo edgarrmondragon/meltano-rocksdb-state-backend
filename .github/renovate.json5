@@ -1,0 +1,18 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    // https://github.com/edgarrmondragon/.github/blob/main/renovate/python.json5
+    "edgarrmondragon/.github//renovate/python.json5",
+
+    // https://github.com/edgarrmondragon/.github/blob/main/renovate/uv.json5
+    "edgarrmondragon/.github//renovate/uv.json5",
+  ],
+
+  // https://docs.renovatebot.com/configuration-options/#packagerules
+  "packageRules": [
+    {
+      "matchManagers": ["pre-commit"],
+      "groupName": "pre-commit hooks",
+    },
+  ]
+}
