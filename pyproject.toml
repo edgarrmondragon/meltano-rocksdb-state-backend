@@ -46,8 +46,7 @@ dynamic = [
   "version",
 ]
 dependencies = [
-  # TODO: Refer to a PyPI release once this branch is merged and released
-  "meltano @ git+https://github.com/meltano/meltano@state-backend-plugins",
+  "meltano>=3.7.0a4",
   "rocksdict~=0.3",
 ]
 entry-points."meltano.settings".write_buffer_size = "meltano_rocksdb_state_backend.rocksdb:WRITE_BUFFER_SIZE"
@@ -65,9 +64,6 @@ testing = [
 typing = [
   "mypy>=1",
 ]
-
-[tool.hatch.metadata]
-allow-direct-references = true
 
 [tool.hatch.version]
 source = "vcs"
