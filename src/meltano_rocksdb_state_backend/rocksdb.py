@@ -58,27 +58,9 @@ class RocksDBStateStoreManager(StateStoreManager):
         Args:
             state: The state to set
         """
-        if state.is_complete():
-            self.db[state.state_id] = {
-                "completed": state.completed_state,
-                "partial": state.partial_state,
-            }
-            return
-
-        existing_state: dict[str, t.Any] = self.db.get(state.state_id)  # type: ignore[assignment]
-        if existing_state:
-            state_to_write = MeltanoState(
-                state_id=state.state_id,
-                completed_state=existing_state.get("completed", {}),
-                partial_state=existing_state.get("partial", {}),
-            )
-            state_to_write.merge_partial(state)
-        else:
-            state_to_write = state
-
         self.db[state.state_id] = {
-            "completed": state_to_write.completed_state,
-            "partial": state_to_write.partial_state,
+            "completed": state.completed_state,
+            "partial": state.partial_state,
         }
 
     def get(self, state_id: str) -> MeltanoState | None:
