@@ -56,7 +56,7 @@ def test_state_store(tmp_path: Path) -> None:
         partial_state={"key": "value"},
         completed_state={},
     )
-    manager.set(new_state)
+    manager.update(new_state)
     state = manager.get("test")
     assert state is not None
     assert state.completed_state == {"key": "value"}
@@ -67,7 +67,7 @@ def test_state_store(tmp_path: Path) -> None:
     state = manager.get("test")
 
     # Set partial state without existing state
-    manager.set(new_state)
+    manager.update(new_state)
     state = manager.get("test")
     assert state is not None
     assert state.completed_state == {}
