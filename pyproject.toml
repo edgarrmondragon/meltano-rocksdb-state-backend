@@ -46,7 +46,7 @@ dynamic = [
   "version",
 ]
 dependencies = [
-  "meltano>=3.7.0a4",
+  "meltano>=3.7",
   "rocksdict~=0.3",
 ]
 entry-points."meltano.settings".write_buffer_size = "meltano_rocksdb_state_backend.rocksdb:WRITE_BUFFER_SIZE"
