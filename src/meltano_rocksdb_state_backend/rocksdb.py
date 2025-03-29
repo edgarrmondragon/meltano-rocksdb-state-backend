@@ -83,7 +83,7 @@ class RocksDBStateStoreManager(StateStoreManager):
             else None
         )
 
-    def clear(self, state_id: str) -> None:
+    def delete(self, state_id: str) -> None:
         """Clear state for the given state_id.
 
         Args:
