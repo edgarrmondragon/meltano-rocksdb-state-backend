@@ -82,7 +82,7 @@ def test_state_store(tmp_path: Path) -> None:
 
 def test_get_manager(project: Project) -> None:
     write_buffer_size = 0x2000000
-    project.settings.set("state_backend.rocksdb.write_buffer_size", write_buffer_size)  # type: ignore[no-untyped-call]
+    project.settings.set("state_backend.rocksdb.write_buffer_size", write_buffer_size)
 
     manager = state_store_manager_from_project_settings(project.settings)
 
@@ -104,7 +104,7 @@ def test_get_manager(project: Project) -> None:
 
 def test_settings(project: Project) -> None:
     setting_name = "state_backend.rocksdb.write_buffer_size"
-    project.settings.set(setting_name, 0x2000000)  # type: ignore[no-untyped-call]
+    project.settings.set(setting_name, 0x2000000)
 
     write_buffer_size = project.settings.find_setting(setting_name)
 
