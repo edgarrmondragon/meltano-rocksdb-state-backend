@@ -7,20 +7,16 @@ on:
       - src/**
       - tests/**
       - pyproject.toml
-      - tox.ini
       - uv.lock
       - .github/workflows/test.yaml
-      - .github/workflows/constraints.txt
   pull_request:
     branches: [main]
     paths:
       - src/**
       - tests/**
       - pyproject.toml
-      - tox.ini
       - uv.lock
       - .github/workflows/test.yaml
-      - .github/workflows/constraints.txt
   workflow_dispatch: {}
   schedule:
     # Run every 27 hours to avoid running at the same time every day
