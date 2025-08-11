@@ -24,7 +24,7 @@ maintainers = [
 authors = [
   { name = "Edgar Ramírez Mondragón", email = "edgarrm358@gmail.com" },
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
@@ -34,7 +34,6 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
@@ -145,6 +144,9 @@ lint.isort.required-imports = [
 ]
 lint.pydocstyle.convention = "google"
 
+[tool.pyproject-fmt]
+max_supported_python = "3.13"
+
 [tool.pytest.ini_options]
 addopts = [
   "--durations=10",
@@ -179,7 +181,6 @@ env_list = [
   "3.12",
   "3.11",
   "3.10",
-  "3.9",
   "coverage",
 ]
 
@@ -190,7 +191,6 @@ commands = [ [ "coverage", "run", "-m", "pytest", { replace = "posargs", default
 
 [tool.tox.env.coverage]
 depends = [
-  "3.9",
   "3.10",
   "3.11",
   "3.12",
