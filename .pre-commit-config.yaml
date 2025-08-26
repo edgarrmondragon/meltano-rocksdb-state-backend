@@ -20,7 +20,7 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.12.9
+    rev: v0.12.10
     hooks:
       - id: ruff
         name: Ruff lint
@@ -35,7 +35,7 @@ repos:
       - id: pyproject-fmt
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.33.2
+    rev: 0.33.3
     hooks:
       - id: check-github-workflows
       - id: check-meltano
@@ -45,7 +45,7 @@ repos:
         - pyjson5==1.6.9
 
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: "0.8.11"
+    rev: "0.8.13"
     hooks:
       - id: uv-lock
       - id: uv-sync
