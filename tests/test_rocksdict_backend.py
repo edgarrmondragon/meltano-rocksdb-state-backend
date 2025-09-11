@@ -11,7 +11,7 @@ from meltano.core.state_store import (
     state_store_manager_from_project_settings,
 )
 
-from meltano_rocksdb_state_backend.rocksdb import RocksDBStateStoreManager
+from meltano_state_backend_rocksdb.rocksdb import RocksDBStateStoreManager
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -108,6 +108,7 @@ def test_settings(project: Project) -> None:
 
     write_buffer_size = project.settings.find_setting(setting_name)
 
+    assert write_buffer_size is not None
     assert write_buffer_size.label == "Writer Buffer Size"
     assert write_buffer_size.kind == SettingKind.INTEGER
 
