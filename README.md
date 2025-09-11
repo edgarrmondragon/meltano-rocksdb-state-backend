@@ -1,10 +1,8 @@
-# `meltano-rocksdb-state-backend`
-
-⚠️ **EXPERIMENTAL: See https://github.com/meltano/meltano/pull/8367.** ⚠️
+# `meltano-state-backend-rocksdb`
 
 <!--
-[![PyPI version](https://img.shields.io/pypi/v/meltano-rocksdb-state-backend.svg?logo=pypi&logoColor=FFE873&color=blue)](https://pypi.org/project/meltano-rocksdb-state-backend)
-[![Python versions](https://img.shields.io/pypi/pyversions/meltano-rocksdb-state-backend.svg?logo=python&logoColor=FFE873)](https://pypi.org/project/meltano-rocksdb-state-backend)
+[![PyPI version](https://img.shields.io/pypi/v/meltano-state-backend-rocksdb.svg?logo=pypi&logoColor=FFE873&color=blue)](https://pypi.org/project/meltano-state-backend-rocksdb)
+[![Python versions](https://img.shields.io/pypi/pyversions/meltano-state-backend-rocksdb.svg?logo=python&logoColor=FFE873)](https://pypi.org/project/meltano-state-backend-rocksdb)
 -->
 
 This is a [Meltano][meltano] extension that provides a [RocksDB][rocksdb] [state backend][state-backend] using the [RocksDict][rocksdict] library.
@@ -18,14 +16,14 @@ This package needs to be installed in the same Python environment as Meltano.
 #### With [pipx]
 
 ```bash
-pipx install 'meltano @ git+https://github.com/meltano/meltano@state-backend-plugins'
-pipx inject meltano 'meltano-rocksdb-state-backend @ git+https://github.com/edgarrmondragon/meltano-rocksdb-state-backend.git'
+pipx install meltano
+pipx inject meltano 'meltano-state-backend-rocksdb @ git+https://github.com/reservoir-data/meltano-state-backend-rocksdb.git'
 ```
 
 #### With [uv]
 
 ```bash
-uv tool install --from 'meltano @ git+https://github.com/meltano/meltano@state-backend-plugins' --with 'meltano-dbm-state-backend @ git+https://github.com/edgarrmondragon/meltano-rocksdb-state-backend.git' meltano
+uv tool install --with 'meltano-state-backend-rocksdb @ git+https://github.com/reservoir-data/meltano-state-backend-rocksdb.git' meltano
 ```
 
 ### From PyPI

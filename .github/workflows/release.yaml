@@ -12,6 +12,7 @@ jobs:
     name: Build wheel and sdist
     runs-on: ubuntu-latest
     outputs:
+      package_name: ${{ steps.baipp.outputs.package_name }}
       package_version: ${{ steps.baipp.outputs.package_version }}
     steps:
     - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -25,7 +26,7 @@ jobs:
     needs: [build]
     environment:
       name: publish
-      url: https://pypi.org/project/meltano-rocksdb-state-backend/${{ needs.build.outputs.package_version }}
+      url: https://pypi.org/project/${{ needs.build.outputs.package_name }}/${{ needs.build.outputs.package_version }}
 
     steps:
     - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0

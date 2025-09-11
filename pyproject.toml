@@ -6,8 +6,8 @@ requires = [
 ]
 
 [project]
-name = "meltano-rocksdb-state-backend"
-description = "Meltano RocksDB State Backend"
+name = "meltano-state-backend-rocksdb"
+description = "Meltano State Backend for RocksDB"
 readme = "README.md"
 keywords = [
   "backend",
@@ -48,8 +48,8 @@ dependencies = [
   "meltano>=3.7",
   "rocksdict~=0.3",
 ]
-entry-points."meltano.settings".write_buffer_size = "meltano_rocksdb_state_backend.rocksdb:WRITE_BUFFER_SIZE"
-entry-points."meltano.state_backends".rocksdb = "meltano_rocksdb_state_backend.rocksdb:RocksDBStateStoreManager"
+entry-points."meltano.settings".write_buffer_size = "meltano_state_backend_rocksdb.rocksdb:WRITE_BUFFER_SIZE"
+entry-points."meltano.state_backends".rocksdb = "meltano_state_backend_rocksdb.rocksdb:RocksDBStateStoreManager"
 
 [dependency-groups]
 dev = [
@@ -62,6 +62,7 @@ testing = [
 ]
 typing = [
   "mypy>=1",
+  "ty>=0.0.1a20",
 ]
 
 [tool.hatch.version]
@@ -137,7 +138,7 @@ lint.flake8-annotations.mypy-init-return = true
 lint.flake8-annotations.suppress-dummy-args = true
 lint.flake8-pytest-style.parametrize-values-type = "tuple"
 lint.isort.known-first-party = [
-  "meltano_rocksdb_state_backend",
+  "meltano_state_backend_rocksdb",
 ]
 lint.isort.required-imports = [
   "from __future__ import annotations",
@@ -154,14 +155,14 @@ addopts = [
 
 [tool.coverage.paths]
 package = [
-  "src/meltano_rocksdb_state_backend/",
-  "*/site-packages/meltano_rocksdb_state_backend/",
+  "src/meltano_state_backend_rocksdb/",
+  "*/site-packages/meltano_state_backend_rocksdb/",
 ]
 
 [tool.coverage.run]
 branch = true
 source = [
-  "meltano_rocksdb_state_backend",
+  "meltano_state_backend_rocksdb",
   "tests",
 ]
 parallel = true
@@ -210,7 +211,15 @@ commands = [
     "mypy",
     "--strict",
     { replace = "posargs", default = [
-      "src/meltano_rocksdb_state_backend",
+      "src/meltano_state_backend_rocksdb",
+      "tests",
+    ], extend = true },
+  ],
+  [
+    "ty",
+    "check",
+    { replace = "posargs", default = [
+      "src/meltano_state_backend_rocksdb",
       "tests",
     ], extend = true },
   ],
@@ -233,3 +242,6 @@ module = [
 prerelease = "allow"
 preview = true
 required-version = ">=0.5.19"
+
+[tool.uv.sources]
+meltano = { git = "https://github.com/meltano/meltano.git" }
